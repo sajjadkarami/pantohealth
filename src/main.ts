@@ -11,7 +11,7 @@ async function bootstrap() {
       urls: ['amqp://user:password@localhost:5672'],
       queue: 'x-ray',
       queueOptions: {
-        durable: false,
+        durable: true,
       },
     },
   });
