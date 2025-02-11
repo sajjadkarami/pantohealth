@@ -5,7 +5,6 @@ import {
   Transport,
 } from '@nestjs/microservices';
 import * as crypto from 'crypto';
-import { XRaryData, XRay } from '../schema/x-ray.schema';
 
 @Injectable()
 export class ProducerService implements OnModuleInit {
@@ -14,7 +13,7 @@ export class ProducerService implements OnModuleInit {
     this.client = ClientProxyFactory.create({
       transport: Transport.RMQ,
       options: {
-        urls: ['amqp://user:password@localhost:5672'],
+        urls: [process.env.RABBIT_URL as string],
         queue: 'x-ray',
         queueOptions: {
           durable: true,

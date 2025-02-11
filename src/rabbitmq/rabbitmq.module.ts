@@ -10,7 +10,7 @@ import { SignalModule } from '../signal/signal.module';
         name: 'RABBITMQ_SERVICE',
         transport: Transport.RMQ,
         options: {
-          urls: ['amqp://user:password@localhost:5672'],
+          urls: ['amqp://user:password@rabbitmq:5672'],
           queue: 'x-ray',
           queueOptions: {
             durable: false,

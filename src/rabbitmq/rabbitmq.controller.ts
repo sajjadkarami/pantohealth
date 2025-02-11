@@ -8,6 +8,10 @@ export class RabbitmqController {
   @MessagePattern('x-ray')
   async handleMessage(@Payload() data: any) {
     console.log('here');
-    await this.signalService.create(JSON.parse(data));
+    try {
+      await this.signalService.create(JSON.parse(data));
+    } catch (e) {
+      console.log(e);
+    }
   }
 }

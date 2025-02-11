@@ -8,7 +8,7 @@ async function bootstrap() {
   app.connectMicroservice<RmqOptions>({
     transport: Transport.RMQ,
     options: {
-      urls: ['amqp://user:password@localhost:5672'],
+      urls: [process.env.RABBIT_URL as string],
       queue: 'x-ray',
       queueOptions: {
         durable: true,
@@ -16,6 +16,6 @@ async function bootstrap() {
     },
   });
   await app.startAllMicroservices();
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 80);
 }
 bootstrap();
