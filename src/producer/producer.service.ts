@@ -63,6 +63,6 @@ export class ProducerService implements OnModuleInit {
 
       console.log(JSON.stringify(xray, null, 2));
       this.client.emit('x-ray', JSON.stringify(xray));
-    }, 5000); // Send data every 5 seconds
+    }, 60000); // Send data every 5 seconds
   }
 }

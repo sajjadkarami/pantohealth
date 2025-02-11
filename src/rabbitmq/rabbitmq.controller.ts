@@ -9,7 +9,7 @@ export class RabbitmqController {
   async handleMessage(@Payload() data: any) {
     console.log('here');
     try {
-      await this.signalService.create(JSON.parse(data));
+      await this.signalService.createFromSignal(JSON.parse(data));
     } catch (e) {
       console.log(e);
     }

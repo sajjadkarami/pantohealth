@@ -1,12 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { XRay } from '../schema/x-ray.schema';
 import { Model } from 'mongoose';
 import * as util from 'util';
+import { XRay } from '../schema/x-ray.schema';
+import { CreateSignalDto } from './dto/createSignal';
 @Injectable()
 export class SignalService {
+  async delete(deviceId: string) {
+    await this.xrayModel.deleteMany({
+      deviceId,
+    });
+  }
   constructor(@InjectModel(XRay.name) private xrayModel: Model<XRay>) {}
-  async create(data) {
+
+  async find(deviceId) {
+    const data = await this.xrayModel.find({
+      deviceId,
+    });
+    return data;
+  }
+
+  async findAll() {
+    const data = await this.xrayModel.find().sort('time').limit(10);
+    return data;
+  }
+
+  async createFromSignal(data) {
     const objectString = util.inspect(data);
     const objectSize = Buffer.byteLength(objectString, 'utf8');
     const deviceId = Object.keys(data)[0];
@@ -36,5 +55,18 @@ export class SignalService {
     console.log(xRayObject);
     const createdXray = new this.xrayModel(xRayObject);
     await createdXray.save();
+  }
+
+  async create(dto: CreateSignalDto) {
+    const xRayObject: XRay = {
+      deviceId: dto.deviceId,
+      time: dto.time,
+      data: dto.data,
+      dataLength: dto.data.length,
+      dataVolume: Buffer.byteLength(JSON.stringify(dto.data), 'utf8'),
+    };
+    const createdXray = new this.xrayModel(xRayObject);
+    await createdXray.save();
+    return createdXray;
   }
 }
