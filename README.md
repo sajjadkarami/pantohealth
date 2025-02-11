@@ -22,10 +22,21 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Start with docker
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+first build the docker project with this command:
+```
+$docker compose build
+```
+you can change variables in .env.docker
 
+to run the whole project you can use this:
+```
+$docker compose up -d
+```
+you can access swagger at https://localhost/api and test it
+
+the rest of document is for running app in local mode with nodejs
 ## Project setup
 
 ```bash
